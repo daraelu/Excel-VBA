@@ -1,0 +1,20 @@
+
+Private Sub Workbook_SheetChange(ByVal Sh As Object, ByVal Target As Range) 
+	Dim wsHist As Worksheet, Rng As Range 
+	
+	Set wsHist = Sheets("História") 
+	If Sh Is wsHist Then Exit Sub 
+
+	Set Rng = wsHist.Range("A" & Rows.Count).End(xlUp).Offset(1) 
+
+	With Rng
+		.Value = Now 
+		.Offset(, 1) = Sh.Name 
+		.Offset(, 2) = Target.Address 
+		If Target.Cells.Count > 1 Then 
+			.Offset(, 3) = "Valores Alterados" 
+		Else 
+			.Offset(, 3) = Target.Formula 
+		End If 	
+	End With 
+End Sub

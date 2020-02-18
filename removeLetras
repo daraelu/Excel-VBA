@@ -1,0 +1,95 @@
+Option Explicit
+
+ 
+
+Sub sample()
+
+    Dim nNota As String
+
+    Dim newNota As String
+
+    Dim tamanho As Integer
+
+    Dim i As Integer
+
+    Dim x As Long
+
+    Dim ultimaLinha As Long
+
+    Dim coluna As String
+
+    Dim linha As Integer
+
+    Dim caract As String
+
+    Dim ws As Worksheet: Set ws = ActiveSheet
+
+   
+
+    coluna = UCase(Trim(InputBox("Informe a letra da coluna que você deseja remover as letras!")))
+
+    linha = InputBox("Informe o número da linha que você deseja iniciar a remoção das letras!")
+
+   
+
+    ultimaLinha = ws.Cells(Rows.Count, coluna).End(xlUp).Row
+
+   
+
+    For x = linha To ultimaLinha
+
+        nNota = ws.Cells(x, coluna)
+
+        tamanho = Len(nNota)
+
+       
+
+        For i = 1 To tamanho
+
+            caract = caracter(Mid(nNota, i, 1))
+
+            newNota = newNota & caract
+
+        Next i
+
+       
+
+        ws.Cells(x, coluna) = "'" & newNota
+
+        newNota = ""
+
+    Next x
+
+ 
+
+ 
+
+   
+
+End Sub
+
+ 
+
+ 
+
+Function caracter(ByVal caract As String)
+
+    Dim numero As Integer
+
+    On Error GoTo err
+
+        numero = Int(caract)
+
+        caracter = caract
+
+   
+
+    Exit Function
+
+err:
+
+    caracter = ""
+
+   
+
+End Function
